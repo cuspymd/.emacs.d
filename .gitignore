@@ -46,3 +46,6 @@ flycheck_*.el
 
 bookmarks
 places
+history
+ido.last
+transient
