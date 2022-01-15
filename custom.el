@@ -16,7 +16,7 @@
  '(flycheck-idle-change-delay 1.0)
  '(hl-sexp-background-color "#efebe9")
  '(package-selected-packages
-   '(elpy magit nix-mode rjsx-mode yaml-mode smartparens rainbow-delimiters paredit cider clojure-mode web-mode company tide material-theme better-defaults))
+   '(magit docker elpy nix-mode rjsx-mode yaml-mode smartparens rainbow-delimiters paredit cider clojure-mode web-mode company tide material-theme better-defaults))
  '(show-paren-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil)
