@@ -7,6 +7,12 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
 (setq inhibit-startup-message t) ;; hide the startup message
 (load-theme 'material t) ;; load material theme
 (require 'better-defaults)
