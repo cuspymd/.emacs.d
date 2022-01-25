@@ -1,7 +1,7 @@
 (require 'package)
 
 (add-to-list 'package-archives
-       '("melpa" . "http://melpa.org/packages/") t)
+       '("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize)
 (when (not package-archive-contents)
@@ -19,22 +19,8 @@
 (load custom-file)
 (setq ido-everywhere t)
 
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1))
-
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
-
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
 
 (elpy-enable)
 (add-hook 'clojure-mode-hook #'paredit-mode)
@@ -46,3 +32,17 @@
 (setq projectile-project-search-path '("~/work/"))
 (projectile-mode +1)
 
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (
+         (typescript-mode . lsp)
+         (js-mode . lsp)
+         ;; if you want which-key integration
+        (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package which-key
+    :config
+    (which-key-mode))

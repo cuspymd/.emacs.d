@@ -50,3 +50,5 @@ history
 ido.last
 transient
 projectile-bookmarks.eld
+.cache
+.lsp-session-v1

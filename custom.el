@@ -17,7 +17,7 @@
  '(hl-sexp-background-color "#efebe9")
  '(js-indent-level 2)
  '(package-selected-packages
-   '(use-package projectile svelte-mode magit docker elpy nix-mode rjsx-mode yaml-mode smartparens rainbow-delimiters paredit cider clojure-mode web-mode company tide material-theme better-defaults))
+   '(lsp-ui which-key lsp-mode use-package projectile svelte-mode magit docker elpy nix-mode rjsx-mode yaml-mode smartparens rainbow-delimiters paredit cider clojure-mode web-mode company material-theme better-defaults))
  '(show-paren-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil)
