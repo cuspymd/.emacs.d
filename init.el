@@ -38,6 +38,7 @@
   :hook (
          (typescript-mode . lsp)
          (js-mode . lsp)
+         (svelte-mode . lsp)
          ;; if you want which-key integration
         (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
