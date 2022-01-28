@@ -26,7 +26,6 @@
 (elpy-enable)
 (add-hook 'clojure-mode-hook #'paredit-mode)
 (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-(set-fontset-font t 'hangul (font-spec :name "NanumGothicCoding"))
 
 (require 'projectile)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
