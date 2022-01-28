@@ -14,9 +14,10 @@
 (setq use-package-always-ensure t)
 
 (setq inhibit-startup-message t) ;; hide the startup message
-(load-theme 'material t) ;; load material theme
-(require 'better-defaults)
+(use-package better-defaults)
 (load custom-file)
+(package-install-selected-packages)
+(load-theme 'material t) ;; load material theme
 (setq ido-everywhere t)
 
 ;; aligns annotation to the right hand side
@@ -39,9 +40,16 @@
          (typescript-mode . lsp)
          (js-mode . lsp)
          (svelte-mode . lsp)
-         ;; if you want which-key integration
-        (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+         (nix-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp
+  :config
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
+  )
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package which-key
