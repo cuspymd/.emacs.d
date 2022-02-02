@@ -17,7 +17,6 @@
 (use-package better-defaults)
 (load custom-file)
 (package-install-selected-packages)
-(load-theme 'material t) ;; load material theme
 (setq ido-everywhere t)
 
 ;; aligns annotation to the right hand side
@@ -54,3 +53,13 @@
 (use-package which-key
     :config
     (which-key-mode))
+
+(use-package all-the-icons
+  :if (display-graphic-p))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+(use-package doom-themes
+  :init (load-theme 'doom-palenight t))
