@@ -63,3 +63,6 @@
 
 (use-package doom-themes
   :init (load-theme 'doom-palenight t))
+
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
