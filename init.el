@@ -31,6 +31,10 @@
 (setq projectile-project-search-path '("~/work/"))
 (projectile-mode +1)
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
