@@ -17,6 +17,8 @@
  '(frame-resize-pixelwise t)
  '(hl-sexp-background-color "#efebe9")
  '(js-indent-level 2)
+ '(org-export-with-section-numbers nil)
+ '(org-export-with-toc nil)
  '(package-selected-packages
    '(flycheck typescript-mode emojify doom-modeline all-the-icons lsp-ui which-key lsp-mode use-package projectile svelte-mode magit docker elpy nix-mode rjsx-mode yaml-mode smartparens rainbow-delimiters paredit cider clojure-mode web-mode company better-defaults))
  '(show-paren-mode t)

@@ -70,3 +70,25 @@
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
+
+(setq org-publish-project-alist
+      '(
+        ("blog-posts"
+         :base-directory "~/work/cuspymd.github.io/org/"
+         :base-extension "org"
+         :publishing-directory "~/work/cuspymd.github.io/docs/_posts"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :html-extension "html"
+         :body-only t ;; Only export section between <body> </body>
+         )
+        ("blog-assets"
+         :base-directory "~/work/cuspymd.github.io/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+         :publishing-directory "~/work/cuspymd.github.io/docs/assets"
+         :recursive t
+         :publishing-function org-publish-attachment)
+
+        ("blog" :components ("blog-posts" "blog-assets"))
+        ))
