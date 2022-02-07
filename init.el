@@ -43,6 +43,8 @@
          (js-mode . lsp)
          (svelte-mode . lsp)
          (nix-mode . lsp)
+         (html-mode . lsp)
+         (css-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :config
@@ -50,8 +52,7 @@
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
-                    :server-id 'nix))
-  )
+                    :server-id 'nix)))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package which-key
@@ -62,7 +63,6 @@
   :if (display-graphic-p))
 
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1))
 
 (use-package doom-themes
@@ -70,6 +70,13 @@
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
+
+(use-package emmet-mode
+  :hook (
+         (html-mode . emmet-mode)
+         (css-mode . emmet-mode)
+         ))
+  
 
 (setq org-publish-project-alist
       '(
