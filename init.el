@@ -312,4 +312,8 @@
 
 (use-package consult-flycheck)
 
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
 (ido-mode nil)
