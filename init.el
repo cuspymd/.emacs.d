@@ -22,14 +22,20 @@
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
-(elpy-enable)
-(add-hook 'clojure-mode-hook #'paredit-mode)
-(add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+(use-package elpy
+  :config
+  (elpy-enable))
 
-(require 'projectile)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(setq projectile-project-search-path '("~/work/"))
-(projectile-mode +1)
+(use-package clojure-mode
+  :hook
+  (clojure-mode . paredit-mode)
+  (clojure-mode . rainbow-delimiters-mode))
+
+(use-package projectile
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-project-search-path '("~/work/"))
+  (projectile-mode +1))
 
 (use-package flycheck
   :ensure t
@@ -53,7 +59,7 @@
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
                     :server-id 'nix)))
-
+ 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package which-key
     :config
@@ -124,6 +130,17 @@
   (vertico-mode)
   )
 
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  ;; More convenient directory navigation commands
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  ;; Tidy shadowed file names
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
 (use-package orderless
   :init
   ;; Configure a custom style dispatcher (see the Consult wiki)
@@ -132,8 +149,6 @@
   (setq completion-styles '(orderless)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion))))
-  :config
-  (setq orderless-matching-styles '(orderless-flex))
   )
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
@@ -153,8 +168,8 @@
   :ensure t
 
   :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
+  (("C-C ." . embark-act)         ;; pick some comfortable binding
+   ("C-C ;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
   :init

@@ -20,6 +20,8 @@
  '(frame-resize-pixelwise t)
  '(hl-sexp-background-color "#efebe9")
  '(js-indent-level 2)
+ '(org-agenda-files
+   '("/home/cuspymd/OneDrive/org/roam/" "/home/cuspymd/OneDrive/org/roam/daily/"))
  '(org-export-with-section-numbers nil)
  '(org-export-with-toc nil)
  '(package-selected-packages
