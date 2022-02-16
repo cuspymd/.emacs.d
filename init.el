@@ -316,4 +316,13 @@
   :config
   (yas-global-mode 1))
 
+(use-package tree-sitter
+  :init
+  (global-tree-sitter-mode)
+  :hook
+  (tree-sitter-after-on . tree-sitter-hl-mode)
+  :config
+  (use-package tree-sitter-langs)
+  )
+
 (ido-mode nil)
