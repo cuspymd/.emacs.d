@@ -98,7 +98,7 @@
         ("blog-assets"
          :base-directory "~/work/cuspymd.github.io/org/"
          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-         :publishing-directory "~/work/cuspymd.github.io/docs/assets"
+         :publishing-directory "~/work/cuspymd.github.io/docs"
          :recursive t
          :publishing-function org-publish-attachment)
 
@@ -128,6 +128,10 @@
 (use-package vertico
   :init
   (vertico-mode)
+  (vertico-multiform-mode)
+  (setq vertico-multiform-categories
+      '((file grid)
+        (consult-grep buffer)))
   )
 
 (use-package vertico-directory
