@@ -19,8 +19,13 @@
 (load custom-file)
 (package-install-selected-packages)
 
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
+(use-package company
+  :init
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+  :config
+  (global-company-mode))
+
 
 (use-package elpy
   :config
@@ -152,7 +157,7 @@
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
   (setq completion-styles '(orderless)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion))))
+        completion-category-overrides '((file (styles basic partial-completion))))
   )
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
@@ -177,12 +182,10 @@
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
   :init
-
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
-
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
