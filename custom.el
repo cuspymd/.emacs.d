@@ -23,6 +23,7 @@
  '(org-export-with-toc nil)
  '(package-selected-packages
    '(avy tree-sitter-langs tree-sitter consult-flycheck embark-consult consult embark marginalia orderless vertico org-roam emmet-mode flycheck typescript-mode emojify doom-modeline all-the-icons lsp-ui which-key lsp-mode use-package projectile svelte-mode magit docker elpy nix-mode rjsx-mode yaml-mode smartparens rainbow-delimiters paredit cider clojure-mode web-mode company better-defaults))
+ '(recentf-mode t)
  '(show-paren-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil)
