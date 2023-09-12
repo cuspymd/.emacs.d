@@ -17,7 +17,6 @@
 (setq inhibit-startup-message t) ;; hide the startup message
 (use-package better-defaults)
 (load custom-file)
-(package-install-selected-packages)
 
 (use-package company
   :init
@@ -70,46 +69,11 @@
     :config
     (which-key-mode))
 
-(use-package all-the-icons
-  :if (display-graphic-p))
-
-(use-package doom-modeline
-  :init (doom-modeline-mode 1))
-
-(use-package doom-themes
-  :init (load-theme 'doom-palenight t))
-
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
-
 (use-package emmet-mode
   :hook (
          (html-mode . emmet-mode)
          (css-mode . emmet-mode)
          ))
-
-(setq org-publish-project-alist
-      '(
-        ("blog-posts"
-         :base-directory "~/work/cuspymd.github.io/org/"
-         :base-extension "org"
-         :publishing-directory "~/work/cuspymd.github.io/docs/_posts"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4
-         :html-extension "html"
-         :body-only t ;; Only export section between <body> </body>
-         )
-        ("blog-assets"
-         :base-directory "~/work/cuspymd.github.io/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-         :publishing-directory "~/work/cuspymd.github.io/docs"
-         :recursive t
-         :publishing-function org-publish-attachment)
-
-        ("blog" :components ("blog-posts" "blog-assets"))
-        ))
-
 
 (use-package org-roam
   :ensure t
@@ -200,7 +164,7 @@
          ("C-c k" . consult-kmacro)
          ;; C-x bindings (ctl-x-map)
          ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ;; ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
          ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
          ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
          ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
@@ -331,10 +295,6 @@
   :config
   (use-package tree-sitter-langs)
   )
-
-(use-package avy
-  :init
-  (global-set-key (kbd "C-;") 'avy-goto-char-timer))
 
 (use-package package-lint)
 
