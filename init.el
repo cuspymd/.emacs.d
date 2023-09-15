@@ -35,6 +35,8 @@
   (clojure-mode . paredit-mode)
   (clojure-mode . rainbow-delimiters-mode))
 
+(use-package rust-mode)
+
 (use-package projectile
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -55,6 +57,7 @@
          (nix-mode . lsp)
          (html-mode . lsp)
          (css-mode . lsp)
+         (rust-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :config
