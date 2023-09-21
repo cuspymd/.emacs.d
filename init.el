@@ -306,5 +306,6 @@
   )
 
 (use-package package-lint)
+(use-package magit)
 
 (ido-mode nil)
