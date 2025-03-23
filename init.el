@@ -41,12 +41,6 @@
 
 (use-package rust-mode)
 
-(use-package projectile
-  :config
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (setq projectile-project-search-path '("~/work/"))
-  (projectile-mode +1))
-
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
@@ -269,14 +263,14 @@
   ;; By default `consult-project-function' uses `project-root' from project.el.
   ;; Optionally configure a different project root function.
   ;;;; 1. project.el (the default)
-  ;; (setq consult-project-function #'consult--default-project--function)
+  ;;(setq consult-project-function #'consult--default-project--function)
   ;;;; 2. vc.el (vc-root-dir)
   ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
   ;;;; 3. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
   ;;;; 4. projectile.el (projectile-project-root)
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
+  ;;(autoload 'projectile-project-root "projectile")
+  ;;(setq consult-project-function (lambda (_) (projectile-project-root)))
   ;;;; 5. No project support
   ;; (setq consult-project-function nil)
 )
@@ -306,6 +300,80 @@
   )
 
 (use-package package-lint)
-(use-package magit)
+
+(use-package ellama
+  :ensure t
+  :bind ("C-c e" . ellama-transient-main-menu)
+  ;; send last message in chat buffer with C-c C-c
+  :hook (org-ctrl-c-ctrl-c-final . ellama-chat-send-last-message)
+  :init
+  ;; setup key bindings
+  ;; (setopt ellama-keymap-prefix "C-c e")
+  ;; language you want ellama to translate to
+  (setopt ellama-language "Korean")
+  ;; could be llm-openai for example
+  (require 'llm-ollama)
+  (setopt ellama-provider
+  	  (make-llm-ollama
+  	   ;; this model should be pulled to use it
+  	   ;; value should be the same as you print in terminal during pull
+       :host (getenv "OLLAMA_HOST")
+  	   :chat-model "hf.co/bartowski/EXAONE-3.5-2.4B-Instruct-GGUF:Q4_K_M"
+  	   :embedding-model "nomic-embed-text:latest"
+  	   :default-chat-non-standard-params '(("num_ctx" . 8192))))
+  (setopt ellama-summarization-provider
+  	  (make-llm-ollama
+       :host (getenv "OLLAMA_HOST")
+  	   :chat-model "hf.co/bartowski/EXAONE-3.5-2.4B-Instruct-GGUF:Q4_K_M"
+  	   :embedding-model "nomic-embed-text:latest"
+  	   :default-chat-non-standard-params '(("num_ctx" . 32768))))
+  (setopt ellama-coding-provider
+  	  (make-llm-ollama
+       :host (getenv "OLLAMA_HOST")
+  	   :chat-model "hf.co/bartowski/google_gemma-3-4b-it-GGUF:Q4_K_M"
+  	   :embedding-model "nomic-embed-text:latest"
+  	   :default-chat-non-standard-params '(("num_ctx" . 32768))))
+  ;; Predefined llm providers for interactive switching.
+  ;; You shouldn't add ollama providers here - it can be selected interactively
+  ;; without it. It is just example.
+  ;; (setopt ellama-providers
+  ;;     '(("zephyr" . (make-llm-ollama
+  ;;   		 :chat-model "zephyr:7b-beta-q6_K"
+  ;;   		 :embedding-model "zephyr:7b-beta-q6_K"))
+  ;;       ("mistral" . (make-llm-ollama
+  ;;   		  :chat-model "mistral:7b-instruct-v0.2-q6_K"
+  ;;   		  :embedding-model "mistral:7b-instruct-v0.2-q6_K"))
+  ;;       ("mixtral" . (make-llm-ollama
+  ;;   		  :chat-model "mixtral:8x7b-instruct-v0.1-q3_K_M-4k"
+  ;;   		  :embedding-model "mixtral:8x7b-instruct-v0.1-q3_K_M-4k"))))
+  ;; Naming new sessions with llm
+  (setopt ellama-naming-provider
+  	  (make-llm-ollama
+       :host (getenv "OLLAMA_HOST")
+  	   :chat-model "hf.co/bartowski/google_gemma-3-4b-it-GGUF:Q4_K_M"
+  	   :embedding-model "nomic-embed-text:latest"
+  	   :default-chat-non-standard-params '(("stop" . ("\n")))))
+  (setopt ellama-naming-scheme 'ellama-generate-name-by-llm)
+  ;; Translation llm provider
+  (setopt ellama-translation-provider
+  	  (make-llm-ollama
+       :host (getenv "OLLAMA_HOST")
+  	   :chat-model "hf.co/bartowski/google_gemma-3-4b-it-GGUF:Q4_K_M"
+  	   :embedding-model "nomic-embed-text:latest"
+  	   :default-chat-non-standard-params
+  	   '(("num_ctx" . 32768))))
+  (setopt ellama-extraction-provider (make-llm-ollama
+                      :host (getenv "OLLAMA_HOST")
+  				      :chat-model "hf.co/bartowski/google_gemma-3-4b-it-GGUF:Q4_K_M"
+  				      :embedding-model "nomic-embed-text:latest"
+  				      :default-chat-non-standard-params
+  				      '(("num_ctx" . 32768))))
+  ;; customize display buffer behaviour
+  ;; see ~(info "(elisp) Buffer Display Action Functions")~
+  (setopt ellama-chat-display-action-function #'display-buffer-full-frame)
+  (setopt ellama-instant-display-action-function #'display-buffer-at-bottom)
+  :config
+  ;; show ellama context in header line in all buffers
+  (ellama-context-header-line-global-mode +1))
 
 (ido-mode nil)
